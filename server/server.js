@@ -49,12 +49,34 @@ app.get('/todos/:id', (req, res) => {
         }
         else {
             res.send({todo});
-            console.log('Unable to fin todo')
+            console.log('Unable to find todo')
         }
 
     // error
     }).catch((e) => {
         // 400 - and send empty body back
+        res.status(400).send();
+    });
+});
+
+app.delete('/todos/:id', (req, res) => {
+    var id = req.params.id;
+
+    if (!ObjectID.isValid(id)) {
+        // 404 - send back empty send
+        return res.status(404).send();
+    }
+
+    // remove todo by id
+    Todo.findByIdAndRemove(id).then((todo) => {
+        // success
+        if(!todo) {
+            res.status(404).send();
+        }
+        
+        res.send(todo);
+        console.log("remove: \n", todo);
+    }).catch((e) => {
         res.status(400).send();
     });
 });
