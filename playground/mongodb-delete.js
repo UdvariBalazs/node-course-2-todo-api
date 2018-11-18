@@ -25,11 +25,11 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', { useNewUrlParser: true
 
     db.collection('User').deleteMany({name: 'Balázs Udvari'});
 
-    // db.collection('Users').findOneAndDelete({
-    //     _id: new ObjectID("5bd4579123d67d0cc86bf23b")
-    // }).then((results) => {
-    //     console.log(JSON.stringify(results, undefined, 2));
-    // });
+    db.collection('Users').findOneAndDelete({
+        _id: new ObjectID("5bd4579123d67d0cc86bf23b")
+    }).then((results) => {
+        console.log(JSON.stringify(results, undefined, 2));
+    });
 
     // client.close();
 });
